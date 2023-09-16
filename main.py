@@ -1,7 +1,8 @@
 import numpy as np
+import time
 
 def fib_rec(x):
-
+    
     if x == 0 or x == 1:
         return 1
     else:
@@ -21,10 +22,11 @@ def fib_iter(x):
 
 def calcul_de_puissance_expo(M,n):
     i=1
+    result = M
     while (i < n+1):
             i += 1
-            M = np.dot(M,M)
-    return M
+            result = np.dot(result,result)
+    return result
 
 def calcul_de_puissance(M,n):
     i=1
@@ -42,7 +44,8 @@ def puissance(M,n):
 
     elif np.log2(n).is_integer():
         k=np.log2(n)
-        return calcul_de_puissance_expo(M,k)
+        result = calcul_de_puissance_expo(M,k)
+        return result
 
     elif n % 2 == 0:
         k=n/2
@@ -57,15 +60,16 @@ def puissance(M,n):
 
 def fib_mat(x):
     M = np.array([[1, 1], [1, 0]])
+    M = M.astype('float64')
     fib= np.array([1, 0])
     result = np.dot(fib,puissance(M,x))
-
-
     return result[0]
 
 
 n=input('Entrez votre numero :')
-print()
-print(f'Avec la methode d\'iteration : {fib_iter(int(n))}')
-print(f'Avec la methode reciproque : {fib_rec(int(n))}')
-print(f'Avec la methode matricielle : {fib_mat(int(n))}')
+start_time = time.time()
+print(f'Avec la methode d\'iteration : {fib_iter(int(n))}, avec un temps de : {(time.time() - start_time)*1000} miliseconds')
+start_time = time.time()
+print(f'Avec la methode reciproque : {fib_rec(int(n))}, avec un temps de : {(time.time() - start_time)*1000} miliseconds')
+start_time = time.time()
+print(f'Avec la methode matricielle : {fib_mat(int(n))}, avec un temps de : {(time.time() - start_time)*1000} milliseconds')
